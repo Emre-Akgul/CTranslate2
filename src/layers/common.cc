@@ -155,11 +155,11 @@ namespace ctranslate2 {
       const StorageView& encodings = get_position_encoding(max_time);
       const dim_t num_encodings = encodings.dim(0);
 
-      if (max_time > num_encodings)
-        throw std::runtime_error("No position encodings are defined for positions >= "
-                                 + std::to_string(num_encodings)
-                                 + ", but got position "
-                                 + std::to_string(max_time - 1));
+      // if (max_time > num_encodings)
+      //   throw std::runtime_error("No position encodings are defined for positions >= "
+      //                            + std::to_string(num_encodings)
+      //                            + ", but got position "
+      //                            + std::to_string(max_time - 1));
       if (depth != encodings.dim(1))
         throw std::invalid_argument("Shape mismatch: position encodings have depth "
                                     + std::to_string(encodings.dim(1))

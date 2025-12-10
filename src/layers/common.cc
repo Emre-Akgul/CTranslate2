@@ -160,14 +160,16 @@ namespace ctranslate2 {
       //                            + std::to_string(num_encodings)
       //                            + ", but got position "
       //                            + std::to_string(max_time - 1));
+
       if (depth != encodings.dim(1))
         throw std::invalid_argument("Shape mismatch: position encodings have depth "
                                     + std::to_string(encodings.dim(1))
                                     + ", but the input has depth "
                                     + std::to_string(depth));
 
+      const dim_t clamped_index = std::min(index, num_encodings - time);
       DEVICE_AND_TYPE_DISPATCH(input.device(), input.dtype(),
-                               primitives<D>::add_batch_broadcast(encodings.data<T>() + index * depth,
+                               primitives<D>::add_batch_broadcast(encodings.data<T>() + clamped_index * depth,
                                                                   input.data<T>(),
                                                                   time * depth,
                                                                   input.size()));
